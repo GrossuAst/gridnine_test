@@ -1,5 +1,189 @@
 .card {
     height: 370px;
     width: 640px;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: space-around; */
     /* border: 1px solid red; */
+}
+
+.card__header {
+    height: 43px;
+    background-color: #0087C9;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-right: 16px;
+    padding-left: 12px;
+    color: #FFFFFF;
+}
+
+.card__airline-logo {
+    margin: 0;
+    line-height: 43px;
+}
+
+.card__total-price {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    align-items: end;
+    font-size: 22px;
+    /* line-height: 22px; */
+}
+
+.card__total-price-description {
+    font-size: 12px;
+    letter-spacing: -0.5px;
+    line-height: 5px;
+}
+
+.card__departure-flight {
+    display: flex;
+    flex-direction: column;
+    width: 622px;
+    position: relative;
+    /* border-bottom: 1px solid #E5E5E5; */
+    /* height: 102px; */
+    box-sizing: border-box;
+    padding-left: 10px;
+    margin-left: 8px;
+    padding-top: 8px;
+    /* padding-right: 5px; */
+}
+
+.card__departure-flight::after {
+    content: '';
+    border-bottom: 1px solid #E5E5E5;
+    height: 1px;
+    width: 620px;
+    position: absolute;
+    top: 40px;
+    left: -1px;
+}
+
+.card__direction-info {
+    display: flex;
+}
+
+.card__city {
+    margin: 0;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 0.1px;
+}
+
+.card__airport-code {
+    height: 100%;
+    line-height: 26px;
+    font-size: 18px;
+    letter-spacing: -0.1px;
+    color: #0096D8;
+}
+
+.card__arrow {
+    color: #0096D8;
+    width: 30px;
+    box-sizing: border-box;
+    padding-left: 4px;
+    padding-top: 2px;
+}
+
+.card__time-container {
+    box-sizing: border-box;
+    padding-top: 14px;
+    padding-left: 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 585px;
+    /* border-top: 1px solid #E5E5E5; */
+}
+
+.card__time-info {
+    
+}
+
+.card__time {
+    margin: 0;
+    font-size: 22px;    
+    display: flex;
+    gap: 3px;
+}
+
+.card__date {
+    box-sizing: border-box;
+    padding-top: 6px;
+    font-size: 17px;
+    letter-spacing: 0.2px;
+}
+
+.card__duration {
+    margin: 0;
+    margin-top: 6px;
+    margin-left: 12px;
+    font-size: 18px;
+    letter-spacing: -0.2px;
+}
+
+.card__icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 4px;
+}
+
+.card__quantity-transfer {
+    height: 1px;
+    border-bottom: 1px solid #A2A2A2;
+    width: 512px;
+    margin: 13px 0 0 35px;
+    position: relative;
+}
+
+.card__quantity-transfer::after {
+    content: '1 пересадка';
+    position: absolute;
+    text-align: center;
+    background-color: white;
+    color: #FF8E1D;
+    font-weight: 400;
+    width: 110px;
+    top: -13px;
+    left: 212px;
+    font-size: 16px;
+}
+
+.card__airline-name {
+    margin-top: 10px;
+    margin-left: 3px;
+    margin-bottom: 0;
+    letter-spacing: -0.7px;
+    font-size: 18px;
+    line-height: 38px;
+}
+
+.card__arrival-flight {
+    border-top: 2px solid #0083C3;
+    display: flex;
+    flex-direction: column;
+    width: 640px;
+    box-sizing: border-box;
+    margin-top: 1px;
+    padding-top: 8px;
+    padding-left: 17px;
+    padding-right: 0;
+}
+
+.card__button {
+    margin-top: 1px;
+    background-color: #FFB168;
+    padding: 0;
+    border: none;
+    width: 100%;
+    height: 40px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    font-size: 15px;
+    letter-spacing: 0.1px;
+    cursor: pointer;
 }

@@ -10,7 +10,7 @@ export default function FlightList() {
         <div className="container">
             <ul className="flight-list">
                 <li className="flight-list__item"><Card></Card></li>
-                <li className="flight-list__item"><Card></Card></li>
+                {/* <li className="flight-list__item"><Card></Card></li> */}
             </ul>
             <ExpandButton></ExpandButton>
         </div>

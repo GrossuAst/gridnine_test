@@ -68,19 +68,19 @@ export default function Filter() {
                     <li className="filter__list-item">
                         <label className="filter__list-label filter__list-label_type_airlines">
                             <input className="filter__list-checkbox" type="checkbox"></input>
-                            <p className="filter__airline">
+                            <span className="filter__airline">
                             &nbsp;- LOT Polish Airlines
-                            </p>
-                            <p className="filter__ticket-price">от 21049 р.</p>
+                            </span>
+                            <span className="filter__ticket-price">от 21049 р.</span>
                         </label>
                     </li>
                     <li className="filter__list-item">
                         <label className="filter__list-label filter__list-label_type_airlines">
                             <input className="filter__list-checkbox" type="checkbox"></input>
-                            <p className="filter__airline">
+                            <span className="filter__airline">
                                 &nbsp;- Аэрофлот - российская компания 
-                            </p>
-                            <p className="filter__ticket-price">от 31733 р.</p>
+                            </span>
+                            <span className="filter__ticket-price">от 31733 р.</span>
                         </label>
                     </li>
                 </ul>
