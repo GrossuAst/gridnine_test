@@ -2,20 +2,23 @@ import React from "react";
 
 import './Filter.css';
 
-export default function Filter() {
+export default function Filter({ filteringByAscendingPrice, filteringByPriceDescending }) {
     return(
         <form className="filter">
             <div className="filter__container">
                 <h3 className="filter__title">Сортировать</h3>
                 <ul className="filter__list">
                     <li className="filter__list-item">
-                        <label className="filter__list-label">
-                            <input className="filter__list-radio" type="radio" name="price-radio" value='по возрастанию цены' defaultChecked />
+                        <label className="filter__list-label" onClick={ filteringByAscendingPrice }>
+                            <input 
+                                onClick={ filteringByAscendingPrice }
+                                className="filter__list-radio" type="radio" name="price-radio" value='по возрастанию цены' defaultChecked 
+                            />
                             &nbsp;- по возрастанию цены
                         </label>
                     </li>
                     <li className="filter__list-item">
-                        <label className="filter__list-label">
+                        <label className="filter__list-label" onClick={ filteringByPriceDescending }>
                             <input className="filter__list-radio" type="radio" name="price-radio" value='по убыванию цены' />
                             &nbsp;- по убыванию цены
                         </label>

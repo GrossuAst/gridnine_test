@@ -3,18 +3,28 @@ import React from "react";
 import icon from '../../images/icon.png';
 import './Card.css';
 
-export default function Card() {
+export default function Card({ 
+    // для шапки *
+    company,
+    totalPrice,
+    // для первого билета *
+    departureCityFirstTicket,
+    departureAirportFirstTicket,
+    departureAirportCodeFirstTicket,
+    arrivalCityFirstTicket,
+    arrivalAirportFirstTicket,
+}) {
     return(
         <article className="card">
             <div className="card__header">
-                <p className="card__airline-logo">Логотип</p>
-                <p className="card__total-price">21049 Р<span className="card__total-price-description">Стоимость для одного взрослого пассажира</span></p>
+                <p className="card__airline-logo">{ company }</p>
+                <p className="card__total-price">{ totalPrice } &#8381;<span className="card__total-price-description">Стоимость для одного взрослого пассажира</span></p>
             </div>
             <div className="card__departure-flight">
                 <div className="card__direction-info">
-                    <h3 className="card__city">Москва, ШЕРЕМЕТЬЕВО<span className="card__airport-code">&nbsp;(SVO)</span></h3>
+                    <h3 className="card__city">{ departureCityFirstTicket }, { departureAirportFirstTicket }<span className="card__airport-code">&nbsp;({ departureAirportCodeFirstTicket })</span></h3>
                     <div className="card__arrow">&#10230;</div>
-                    <h3 className="card__city">ЛОНДОН, Лондон, Хитроу<span className="card__airport-code">&nbsp;(LHR)</span></h3>
+                    <h3 className="card__city">{ arrivalCityFirstTicket }, { arrivalAirportFirstTicket }<span className="card__airport-code">&nbsp;(LHR)</span></h3>
                 </div>
                 <div className="card__time-container">
                     <div className="card__time-info">

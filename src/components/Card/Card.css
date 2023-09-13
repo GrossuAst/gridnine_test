@@ -1,5 +1,5 @@
 .card {
-    height: 370px;
+    min-height: 370px;
     width: 640px;
     /* display: flex; */
     /* flex-direction: column; */
@@ -52,7 +52,7 @@
     /* padding-right: 5px; */
 }
 
-.card__departure-flight::after {
+/* .card__departure-flight::after {
     content: '';
     border-bottom: 1px solid #E5E5E5;
     height: 1px;
@@ -60,10 +60,13 @@
     position: absolute;
     top: 40px;
     left: -1px;
-}
+} */
 
 .card__direction-info {
     display: flex;
+    min-height: 33px;
+    border-bottom: 1px solid #E5E5E5;
+    justify-content: space-between;
 }
 
 .card__city {
@@ -71,6 +74,7 @@
     font-weight: 400;
     font-size: 18px;
     letter-spacing: 0.1px;
+    max-width: 48%;
 }
 
 .card__airport-code {
@@ -83,15 +87,16 @@
 
 .card__arrow {
     color: #0096D8;
-    width: 30px;
+    width: 4%;
     box-sizing: border-box;
     padding-left: 4px;
     padding-top: 2px;
+    /* justify-self: center; */
 }
 
 .card__time-container {
     box-sizing: border-box;
-    padding-top: 14px;
+    padding-top: 6px;
     padding-left: 1px;
     display: flex;
     justify-content: space-between;

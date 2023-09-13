@@ -2,10 +2,10 @@ import React from "react";
 
 import './ExpandButton.css'
 
-export default function ExpandButton() {
+export default function ExpandButton({ updateVisibleTickets }) {
     return(
         <>
-            <button className="expand-button" type="button" >Показать еще</button>
+            <button className="expand-button" type="button" onClick={updateVisibleTickets}>Показать еще</button>
         </>
     )
 }
