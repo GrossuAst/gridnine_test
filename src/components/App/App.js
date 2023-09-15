@@ -20,9 +20,24 @@ function App() {
   // стейт отфильтрованного массива по цене
   const [ticketsToShow, setTicketsToShow] = React.useState([]);
   // стейт кол-ва отображаемых билетов
+  // для проверки можно начальный стейт установить на 313 - длина приходящего массива
   const [visibleTickets, setVisibleTickets] = React.useState(5);
+  // стейт чекбокса без пересадок
+  const [noStopsChecked, setNoStopsChecked] = React.useState(false);
+  // стейт чекбокс с 1 пересадкой 
+  const [oneStopChecked, setOneStopChecked] = React.useState(false);
 
   console.log(ticketsToShow);
+
+  // изменение стейта чекбокса без пересадок
+  function handleNoStopsChecked() {
+    setNoStopsChecked(!noStopsChecked);
+  }
+
+  // изменение стейта чекбокса с 1 пересадкой
+  function handleOneStopChecked() {
+    setOneStopChecked(!oneStopChecked);
+  }
 
   // фильтрация по времени. Сначала наиболее короткие
   function filteringByDuration() {
@@ -49,6 +64,7 @@ function App() {
   }
 
   // функция для увеличения кол-ва отображаемых билетов
+  // срабатывает при нажатии кнопки "Показать еще"
   function updateVisibleTickets() {
     setVisibleTickets(visibleTickets + 5);
   }
@@ -65,9 +81,18 @@ function App() {
         ticketsToShow={ ticketsToShow }
         visibleTickets={ visibleTickets }
         updateVisibleTickets={ updateVisibleTickets }
+
+        // фильтры по цене и времени полета
         filteringByDuration={ filteringByDuration }
         filteringByAscendingPrice={ filteringByAscendingPrice }
         filteringByPriceDescending={ filteringByPriceDescending }
+
+        // фильтры по кол-ву пересадок и состояние чекбоксов
+        noStopsChecked={ noStopsChecked }
+        oneStopChecked={ oneStopChecked }
+        handleNoStopsChecked={ handleNoStopsChecked }
+        handleOneStopChecked={ handleOneStopChecked }
+
       />
       {/* <Footer></Footer> */}
     </>

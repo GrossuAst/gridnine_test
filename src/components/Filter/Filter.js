@@ -2,7 +2,16 @@ import React from "react";
 
 import './Filter.css';
 
-export default function Filter({ filteringByDuration, filteringByAscendingPrice, filteringByPriceDescending }) {
+export default function Filter({ 
+    filteringByDuration, 
+    filteringByAscendingPrice, 
+    filteringByPriceDescending,
+    handleNoStopsChecked,
+    handleOneStopChecked,
+}) {
+
+
+
     return(
         <form className="filter">
             <div className="filter__container">
@@ -35,13 +44,19 @@ export default function Filter({ filteringByDuration, filteringByAscendingPrice,
                 <ul className="filter__list">
                     <li className="filter__list-item">
                         <label className="filter__list-label">
-                            <input className="filter__list-checkbox" type="checkbox" name="transfer-checkbox" value='1 пересадка' />
+                            <input 
+                                className="filter__list-checkbox" type="checkbox" name="transfer-checkbox" value='1 пересадка' id="oneStopCheckbox" 
+                                onClick={ handleOneStopChecked }
+                            />
                             &nbsp;- 1 пересадка
                         </label>
                     </li>
                     <li className="filter__list-item">
                         <label className="filter__list-label">
-                            <input className="filter__list-checkbox" type="checkbox" name="transfer-checkbox" value='без пересадок' />
+                            <input 
+                                className="filter__list-checkbox" type="checkbox" name="transfer-checkbox" value='без пересадок'
+                                onClick={ handleNoStopsChecked }
+                            />
                             &nbsp;- без пересадок
                         </label>
                     </li>

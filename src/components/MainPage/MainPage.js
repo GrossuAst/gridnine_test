@@ -11,7 +11,12 @@ export default function MainPage({
     updateVisibleTickets, 
     filteringByDuration,
     filteringByAscendingPrice, 
-    filteringByPriceDescending 
+    filteringByPriceDescending,
+    // состояния чекбоксов пересадок и их хэндлеры
+    noStopsChecked,
+    oneStopChecked,
+    handleNoStopsChecked,
+    handleOneStopChecked,
 }) {
     return(
         <main className="main">
@@ -20,11 +25,17 @@ export default function MainPage({
                     filteringByDuration={ filteringByDuration }
                     filteringByAscendingPrice={ filteringByAscendingPrice }
                     filteringByPriceDescending={ filteringByPriceDescending }
+
+                    // обработчики чекбоксов
+                    handleNoStopsChecked={ handleNoStopsChecked }
+                    handleOneStopChecked={ handleOneStopChecked }
                 />
                 <FlightList 
                     ticketsToShow={ ticketsToShow }
                     visibleTickets={ visibleTickets }
                     updateVisibleTickets={ updateVisibleTickets }
+                    noStopsChecked={ noStopsChecked }
+                    oneStopChecked={ oneStopChecked }
                 />
             </section>
         </main>
