@@ -6,9 +6,10 @@ import Filter from "../Filter/Filter";
 import FlightList from "../FlightList/FlightList";
 
 export default function MainPage({ 
-    fitlredArrayByPrice, 
+    ticketsToShow, 
     visibleTickets, 
     updateVisibleTickets, 
+    filteringByDuration,
     filteringByAscendingPrice, 
     filteringByPriceDescending 
 }) {
@@ -16,11 +17,12 @@ export default function MainPage({
         <main className="main">
             <section className="flights">
                 <Filter 
+                    filteringByDuration={ filteringByDuration }
                     filteringByAscendingPrice={ filteringByAscendingPrice }
                     filteringByPriceDescending={ filteringByPriceDescending }
                 />
                 <FlightList 
-                    fitlredArrayByPrice={ fitlredArrayByPrice }
+                    ticketsToShow={ ticketsToShow }
                     visibleTickets={ visibleTickets }
                     updateVisibleTickets={ updateVisibleTickets }
                 />

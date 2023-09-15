@@ -2,7 +2,7 @@ import React from "react";
 
 import './Filter.css';
 
-export default function Filter({ filteringByAscendingPrice, filteringByPriceDescending }) {
+export default function Filter({ filteringByDuration, filteringByAscendingPrice, filteringByPriceDescending }) {
     return(
         <form className="filter">
             <div className="filter__container">
@@ -11,7 +11,6 @@ export default function Filter({ filteringByAscendingPrice, filteringByPriceDesc
                     <li className="filter__list-item">
                         <label className="filter__list-label" onClick={ filteringByAscendingPrice }>
                             <input 
-                                onClick={ filteringByAscendingPrice }
                                 className="filter__list-radio" type="radio" name="price-radio" value='по возрастанию цены' defaultChecked 
                             />
                             &nbsp;- по возрастанию цены
@@ -24,7 +23,7 @@ export default function Filter({ filteringByAscendingPrice, filteringByPriceDesc
                         </label>
                     </li>
                     <li className="filter__list-item">
-                        <label className="filter__list-label">
+                        <label className="filter__list-label" onClick={ filteringByDuration }>
                             <input className="filter__list-radio" type="radio" name="price-radio" value='по времени в пути' />
                             &nbsp;- по времени в пути
                         </label>
