@@ -12,11 +12,15 @@ export default function MainPage({
     filteringByDuration,
     filteringByAscendingPrice, 
     filteringByPriceDescending,
+    handleRadioStateChange,
     // состояния чекбоксов пересадок и их хэндлеры
     noStopsChecked,
     oneStopChecked,
     handleNoStopsChecked,
     handleOneStopChecked,
+    setMinPrice,
+    setMaxPrice,
+
 }) {
     return(
         <main className="main">
@@ -25,10 +29,14 @@ export default function MainPage({
                     filteringByDuration={ filteringByDuration }
                     filteringByAscendingPrice={ filteringByAscendingPrice }
                     filteringByPriceDescending={ filteringByPriceDescending }
+                    handleRadioStateChange={ handleRadioStateChange }
 
                     // обработчики чекбоксов
                     handleNoStopsChecked={ handleNoStopsChecked }
                     handleOneStopChecked={ handleOneStopChecked }
+
+                    setMinPrice={ setMinPrice }
+                    setMaxPrice={ setMaxPrice }
                 />
                 <FlightList 
                     ticketsToShow={ ticketsToShow }

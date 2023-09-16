@@ -10,24 +10,77 @@ import Footer from '../Footer/Footer';
 
 function App() {
 
-  // legs - массив из 2 маршрутов- туда и обратно (есть у каждого билета)
-  // segments - массив из перелетов по одному маршруту (1 или 2 перелета), если перелет 1- маршрут прямой
-  // На маршруте возможна 1 пересадка, но Город вылета первого билет всегда Москва, город прилета первого билета всегда Лондон
-  // Город вылета второго билета всегда Лондон, город прилета второго билета всегда Москва
+  // legs - массив из 2 маршрутов- туда и обратно (есть у каждого билета).
+  // segments - массив из перелетов по одному маршруту (1 или 2 перелета), если перелет 1- маршрут прямой.
+  // На маршруте возможна 1 пересадка, но Город вылета первого билет всегда Москва, город прилета первого билета всегда Лондон.
+  // Город вылета второго билета всегда Лондон, город прилета второго билета всегда Москва.
 
-  // стейт приходящих данных
-  const [initialFlightData, setinitialFlightData] = React.useState(flightsData.result.flights);
+  // *** при монтировании приложения стейт ticketsToShow получает массив в зависимости от диапозона выставленной цены 
+  // (изначально от 0 до 10000, а значит массив пустой, т.к. в приходящих данных нет билетов с ценой до 10000).
+
+  // *** стейт ticketsToShow изменяется только в зависимости от значений инпутов цен. Чекбокс пересадок и радиокнопки сортировки стейт не меняют.
+
+  // *** проверка по наличию пересадок происходит в компоненте FlightList
+
+  // приходящие данные
+  const initialFlightData = flightsData.result.flights;
+
   // стейт отфильтрованного массива по цене
-  const [ticketsToShow, setTicketsToShow] = React.useState([]);
+  const [ticketsToShow, setTicketsToShow] = React.useState(initialFlightData);
+
   // стейт кол-ва отображаемых билетов
-  // для проверки можно начальный стейт установить на 313 - длина приходящего массива
+  // для проверки приложения можно начальный стейт установить на 313 - длина приходящего массива
   const [visibleTickets, setVisibleTickets] = React.useState(5);
+
   // стейт чекбокса без пересадок
   const [noStopsChecked, setNoStopsChecked] = React.useState(false);
   // стейт чекбокс с 1 пересадкой 
   const [oneStopChecked, setOneStopChecked] = React.useState(false);
 
-  console.log(ticketsToShow);
+  // стейт инпутов цены от и до
+  const [minPrice, setMinPrice] = React.useState(0);
+  const [maxPrice, setMaxPrice] = React.useState(10000);
+
+  // стейт радиокнопки (может быть ascendingPrice, descendingPrice, duration)
+  const [radioState, setRadioState] = React.useState('ascendingPrice');
+
+  // возвращает массив, отсортированный по радиокнопке и отфильтрованный по диапозону цен
+  const filteredByPriceRange = React.useMemo(() => {
+    const min = parseFloat(minPrice);
+    const max = parseFloat(maxPrice);
+
+    let sortedArray = [...initialFlightData];
+
+    // сортировка по возрастанию цены
+    if(radioState === 'ascendingPrice') {
+      sortedArray = sortedArray.sort(
+        (a, b) => a.flight.price.total.amount - b.flight.price.total.amount
+      );
+    } 
+    // сортировка по убыванию цены
+    else if(radioState === 'descendingPrice') {
+      sortedArray = sortedArray.sort(
+        (a, b) => b.flight.price.total.amount - a.flight.price.total.amount
+      );
+    }
+    // сортировка по общему времени в пути туда и обратно
+    else if(radioState === 'duration') {
+      sortedArray = sortedArray.sort(
+        (a, b) => (a.flight.legs[0].duration + a.flight.legs[1].duration) - (b.flight.legs[0].duration + b.flight.legs[1].duration)
+      )
+    }
+    
+    // возвращает массив с диапозоном цен от до
+    return sortedArray.filter((ticket) => {
+      const price = ticket.flight.price.total.amount;
+      return (!min || price >= min) && (!max || price <= max);
+    });
+  }, [minPrice, maxPrice, radioState]);
+  
+  // при каждом изменении массива рендерит его заново
+  React.useEffect(() => {
+    setTicketsToShow(filteredByPriceRange);
+  }, [filteredByPriceRange]);
 
   // изменение стейта чекбокса без пересадок
   function handleNoStopsChecked() {
@@ -39,28 +92,9 @@ function App() {
     setOneStopChecked(!oneStopChecked);
   }
 
-  // фильтрация по времени. Сначала наиболее короткие
-  function filteringByDuration() {
-    const filtredArray = [...initialFlightData];
-    // фильтр только по времени туда. Чтобы включить, нужно расскоментить строку ниже и закомментить фильтр по общему времени в пути
-    // filtredArray.sort((a, b) => a.flight.legs[0].duration - b.flight.legs[0].duration);
-    // фильтр по общему времени в пути туда и обратно
-    filtredArray.sort((a, b) => (a.flight.legs[0].duration + a.flight.legs[1].duration) - (b.flight.legs[0].duration + b.flight.legs[1].duration))
-    setTicketsToShow(filtredArray);
-  }
-
-  // фильтрация по возрастанию цены, срабатывает при монтировании приложения
-  function filteringByAscendingPrice() {
-    const filtredArray = [...initialFlightData];
-    filtredArray.sort((a, b) => a.flight.price.total.amount - b.flight.price.total.amount)
-    setTicketsToShow(filtredArray);
-  };
-
-  // фильтрация по убыванию цены
-  function filteringByPriceDescending() {
-    const filtredArray = [...initialFlightData];
-    filtredArray.sort((a, b) => b.flight.price.total.amount - a.flight.price.total.amount);
-    setTicketsToShow(filtredArray);
+  // функция для изменения состояния радиокнопки
+  function handleRadioStateChange(evt) {
+    setRadioState(evt.target.value);
   }
 
   // функция для увеличения кол-ва отображаемых билетов
@@ -68,11 +102,6 @@ function App() {
   function updateVisibleTickets() {
     setVisibleTickets(visibleTickets + 5);
   }
-  
-  // при монтировании приложения фильтрует билеты по возрастанию цены
-  React.useEffect(() => {
-    filteringByAscendingPrice();
-  }, []);
 
   return (
     <>
@@ -82,16 +111,17 @@ function App() {
         visibleTickets={ visibleTickets }
         updateVisibleTickets={ updateVisibleTickets }
 
-        // фильтры по цене и времени полета
-        filteringByDuration={ filteringByDuration }
-        filteringByAscendingPrice={ filteringByAscendingPrice }
-        filteringByPriceDescending={ filteringByPriceDescending }
+        // 
+        handleRadioStateChange={ handleRadioStateChange }
 
-        // фильтры по кол-ву пересадок и состояние чекбоксов
+        // стейт чекбоксов пересадок и их сеттеры
         noStopsChecked={ noStopsChecked }
         oneStopChecked={ oneStopChecked }
         handleNoStopsChecked={ handleNoStopsChecked }
         handleOneStopChecked={ handleOneStopChecked }
+
+        setMinPrice={ setMinPrice }
+        setMaxPrice={ setMaxPrice }
 
       />
       {/* <Footer></Footer> */}

@@ -6,8 +6,11 @@ export default function Filter({
     filteringByDuration, 
     filteringByAscendingPrice, 
     filteringByPriceDescending,
+    handleRadioStateChange,
     handleNoStopsChecked,
     handleOneStopChecked,
+    setMinPrice,
+    setMaxPrice,
 }) {
 
 
@@ -20,20 +23,20 @@ export default function Filter({
                     <li className="filter__list-item">
                         <label className="filter__list-label" onClick={ filteringByAscendingPrice }>
                             <input 
-                                className="filter__list-radio" type="radio" name="price-radio" value='по возрастанию цены' defaultChecked 
+                                className="filter__list-radio" type="radio" name="price-radio" value='ascendingPrice' defaultChecked onChange={ handleRadioStateChange }
                             />
                             &nbsp;- по возрастанию цены
                         </label>
                     </li>
                     <li className="filter__list-item">
                         <label className="filter__list-label" onClick={ filteringByPriceDescending }>
-                            <input className="filter__list-radio" type="radio" name="price-radio" value='по убыванию цены' />
+                            <input className="filter__list-radio" type="radio" name="price-radio" value='descendingPrice' onChange={ handleRadioStateChange } />
                             &nbsp;- по убыванию цены
                         </label>
                     </li>
                     <li className="filter__list-item">
                         <label className="filter__list-label" onClick={ filteringByDuration }>
-                            <input className="filter__list-radio" type="radio" name="price-radio" value='по времени в пути' />
+                            <input className="filter__list-radio" type="radio" name="price-radio" value='duration' onChange={ handleRadioStateChange } />
                             &nbsp;- по времени в пути
                         </label>
                     </li>
@@ -68,13 +71,13 @@ export default function Filter({
                     <li className="filter__list-item">
                         <label className="filter__list-label">
                             От
-                            <input className="filter__price-range" defaultValue={0}></input>
+                            <input className="filter__price-range" defaultValue={0} onChange={(e) => setMinPrice(e.target.value)} ></input>
                         </label>
                     </li>
                     <li className="filter__list-item">
                         <label className="filter__list-label">
                             До
-                            <input className="filter__price-range" defaultValue={10000}></input>
+                            <input className="filter__price-range" defaultValue={10000} onChange={(e) => setMaxPrice(e.target.value)} ></input>
                         </label>
                     </li>
                 </ul>
