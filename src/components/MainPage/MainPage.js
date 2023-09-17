@@ -20,12 +20,16 @@ export default function MainPage({
     handleOneStopChecked,
     setMinPrice,
     setMaxPrice,
-
+    airlinesChecked,
+    handleAirlineCheck,
+    // airlines,
 }) {
     return(
         <main className="main">
             <section className="flights">
                 <Filter 
+                    ticketsToShow={ ticketsToShow }
+
                     filteringByDuration={ filteringByDuration }
                     filteringByAscendingPrice={ filteringByAscendingPrice }
                     filteringByPriceDescending={ filteringByPriceDescending }
@@ -37,6 +41,13 @@ export default function MainPage({
 
                     setMinPrice={ setMinPrice }
                     setMaxPrice={ setMaxPrice }
+
+                    noStopsChecked={ noStopsChecked }
+                    oneStopChecked={ oneStopChecked }
+
+                    handleAirlineCheck={ handleAirlineCheck }
+                    airlinesChecked={ airlinesChecked }
+                    // airlines={ airlines }
                 />
                 <FlightList 
                     ticketsToShow={ ticketsToShow }

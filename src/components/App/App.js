@@ -4,9 +4,9 @@ import flightsData from '../../data/flights.json';
 
 import './App.css';
 
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 import MainPage from '../MainPage/MainPage';
-import Footer from '../Footer/Footer';
+// import Footer from '../Footer/Footer';
 
 function App() {
 
@@ -44,12 +44,17 @@ function App() {
   // стейт радиокнопки (может быть ascendingPrice, descendingPrice, duration)
   const [radioState, setRadioState] = React.useState('ascendingPrice');
 
+  // стейт кнопок авиакомпаний
+  const [airlinesChecked, setAirlinesChecked] = React.useState([]);
+
   // возвращает массив, отсортированный по радиокнопке и отфильтрованный по диапозону цен
   const filteredByPriceRange = React.useMemo(() => {
     const min = parseFloat(minPrice);
     const max = parseFloat(maxPrice);
 
     let sortedArray = [...initialFlightData];
+    
+    // setAirlines(sortedArray.map((ticket) => ticket.flight.carrier.caption))
 
     // сортировка по возрастанию цены
     if(radioState === 'ascendingPrice') {
@@ -68,40 +73,63 @@ function App() {
       sortedArray = sortedArray.sort(
         (a, b) => (a.flight.legs[0].duration + a.flight.legs[1].duration) - (b.flight.legs[0].duration + b.flight.legs[1].duration)
       )
-    }
+    };
+
+    const filteredByAirlinesData = filterByAirlines(sortedArray, airlinesChecked);
     
     // возвращает массив с диапозоном цен от до
-    return sortedArray.filter((ticket) => {
+    return filteredByAirlinesData.filter((ticket) => {
       const price = ticket.flight.price.total.amount;
       return (!min || price >= min) && (!max || price <= max);
     });
-  }, [minPrice, maxPrice, radioState]);
+  }, [minPrice, maxPrice, radioState, airlinesChecked]);
+
+  function filterByAirlines(data, selectedAirlines) {
+    if (selectedAirlines.length === 0) {
+      return data;
+    }
+    
+    return data.filter((ticket) =>
+      selectedAirlines.includes(ticket.flight.carrier.caption)
+    );
+  }
   
   // при каждом изменении массива рендерит его заново
   React.useEffect(() => {
     setTicketsToShow(filteredByPriceRange);
   }, [filteredByPriceRange]);
 
+  // обработчик изменения стейта выбранных компаний
+  function handleAirlineCheck(evt, airline) {
+    const isChecked = evt.target.checked;
+    // если чекбокс выбран, добавить в массив, иначе убрать из массива
+    if(isChecked) {
+      setAirlinesChecked([...airlinesChecked, airline]);
+    } else {
+      setAirlinesChecked(airlinesChecked.filter((item) => item !== airline));
+    }
+  };
+
   // изменение стейта чекбокса без пересадок
   function handleNoStopsChecked() {
     setNoStopsChecked(!noStopsChecked);
-  }
+  };
 
   // изменение стейта чекбокса с 1 пересадкой
   function handleOneStopChecked() {
     setOneStopChecked(!oneStopChecked);
-  }
+  };
 
   // функция для изменения состояния радиокнопки
   function handleRadioStateChange(evt) {
     setRadioState(evt.target.value);
-  }
+  };
 
   // функция для увеличения кол-ва отображаемых билетов
   // срабатывает при нажатии кнопки "Показать еще"
   function updateVisibleTickets() {
     setVisibleTickets(visibleTickets + 5);
-  }
+  };
 
   return (
     <>
@@ -123,6 +151,9 @@ function App() {
         setMinPrice={ setMinPrice }
         setMaxPrice={ setMaxPrice }
 
+        airlinesChecked={ airlinesChecked }
+        handleAirlineCheck={ handleAirlineCheck }
+        // airlines={ airlines }
       />
       {/* <Footer></Footer> */}
     </>
